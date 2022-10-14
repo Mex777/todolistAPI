@@ -5,6 +5,7 @@ const listSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   owner: { type: mongoose.Types.ObjectId, required: true },
+  tasks: [],
 });
 
 const itemSchema = new Schema({

@@ -1,16 +1,8 @@
 const { Task, ToDoList } = require("../models/ListModel");
 
 const getLists = async (req, res) => {
-  try {
-    const lists = await ToDoList.find({ owner: req.user._id });
-    lists.forEach(async (list) => {
-      list.items = await Task.find({ partOf: list._id });
-      const newL = await list.save();
-    });
-    res.json(lists);
-  } catch (error) {
-    console.log(error);
-  }
+  const lists = await ToDoList.find({ owner: req.user._id });
+  res.json(lists);
 };
 
 const addList = async (req, res) => {
@@ -35,4 +27,38 @@ const deleteList = async (req, res) => {
   res.json({ message: "Deleted succesfully" });
 };
 
-module.exports = { getLists, addList, deleteList };
+const getList = async (req, res) => {
+  const tasks = await Task.find({ partOf: req.params.todoid });
+  await ToDoList.findByIdAndUpdate(req.params.todoid, {
+    tasks: tasks,
+  });
+  const list = await ToDoList.findById(req.params.todoid);
+  res.json(list);
+};
+
+const addTask = async (req, res) => {
+  const { name, description } = req.query;
+  const partOf = req.params.todoid;
+
+  const task = await Task.create({
+    name,
+    description,
+    partOf,
+  });
+
+  res.json(task);
+};
+
+const deleteTask = async (req, res) => {
+  await Task.findByIdAndDelete(req.params.taskid);
+  res.json({ message: "task deleted" });
+};
+
+module.exports = {
+  getLists,
+  addList,
+  deleteList,
+  addTask,
+  getList,
+  deleteTask,
+};
