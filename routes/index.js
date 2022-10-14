@@ -13,4 +13,6 @@ router.get("/todo", listController.getLists);
 
 router.post("/todo", listController.addList);
 
+router.delete("/todo/:todoid", listController.deleteList);
+
 module.exports = router;

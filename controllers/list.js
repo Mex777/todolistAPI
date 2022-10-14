@@ -22,4 +22,9 @@ const addList = async (req, res) => {
   res.json(list);
 };
 
-module.exports = { getLists, addList };
+const deleteList = async (req, res) => {
+  await ToDoList.findByIdAndDelete(req.params.todoid);
+  res.json({ message: "Deleted succesfully" });
+};
+
+module.exports = { getLists, addList, deleteList };
