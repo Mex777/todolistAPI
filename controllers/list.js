@@ -1,25 +1,33 @@
 const { Task, ToDoList } = require("../models/ListModel");
 
 const getLists = async (req, res) => {
-  const lists = await ToDoList.find({ owner: req.user._id });
-  lists.forEach(async (list) => {
-    list.items = await Task.find({ partOf: list._id });
-    const newL = await list.save();
-  });
-  res.json(lists);
+  try {
+    const lists = await ToDoList.find({ owner: req.user._id });
+    lists.forEach(async (list) => {
+      list.items = await Task.find({ partOf: list._id });
+      const newL = await list.save();
+    });
+    res.json(lists);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const addList = async (req, res) => {
   const user = req.user;
   const { name, description } = req.query;
 
-  const list = await ToDoList.create({
-    name: name,
-    description: description,
-    owner: user._id,
-  });
+  try {
+    const list = await ToDoList.create({
+      name: name,
+      description: description,
+      owner: user._id,
+    });
 
-  res.json(list);
+    res.json(list);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const deleteList = async (req, res) => {

@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const listSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   description: String,
   owner: { type: mongoose.Types.ObjectId, required: true },
 });
 
 const itemSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   description: String,
   partOf: { type: mongoose.Types.ObjectId, required: true },
 });
