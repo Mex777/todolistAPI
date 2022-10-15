@@ -54,6 +54,11 @@ const deleteTask = async (req, res) => {
   res.json({ message: "task deleted" });
 };
 
+const getItems = async (req, res) => {
+  const tasks = await Task.find({});
+  res.json(tasks);
+};
+
 module.exports = {
   getLists,
   addList,
@@ -61,4 +66,5 @@ module.exports = {
   addTask,
   getList,
   deleteTask,
+  getItems,
 };
