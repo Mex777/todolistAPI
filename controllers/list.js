@@ -23,6 +23,7 @@ const addList = async (req, res) => {
 };
 
 const deleteList = async (req, res) => {
+  await Task.deleteMany({ partOf: req.params.todoid });
   await ToDoList.findByIdAndDelete(req.params.todoid);
   res.json({ message: "Deleted succesfully" });
 };
