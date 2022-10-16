@@ -20,5 +20,6 @@ router.delete("/todo/:todoid/:taskid", listController.deleteTask);
 
 router.get("/items", listController.getItems);
 router.post("/items", listController.addItem);
+router.delete("/items/:itemid", listController.deleteItem);
 
 module.exports = router;

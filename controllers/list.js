@@ -71,6 +71,12 @@ const addItem = async (req, res) => {
   res.json(task);
 };
 
+const deleteItem = async (req, res) => {
+  const id = req.params.itemid;
+  await Task.findByIdAndDelete(id);
+  res.json({ message: "Task removed" });
+};
+
 module.exports = {
   getLists,
   addList,
@@ -80,4 +86,5 @@ module.exports = {
   deleteTask,
   getItems,
   addItem,
+  deleteItem,
 };
