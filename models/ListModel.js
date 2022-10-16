@@ -11,7 +11,8 @@ const listSchema = new Schema({
 const itemSchema = new Schema({
   name: { type: String, required: true },
   description: String,
-  partOf: { type: mongoose.Types.ObjectId, required: true },
+  owner: { type: mongoose.Types.ObjectId, required: true },
+  partOf: mongoose.Types.ObjectId,
 });
 
 const ToDoList = mongoose.model("ToDoList", listSchema);

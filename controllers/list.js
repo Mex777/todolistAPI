@@ -56,8 +56,19 @@ const deleteTask = async (req, res) => {
 };
 
 const getItems = async (req, res) => {
-  const tasks = await Task.find({});
+  const tasks = await Task.find({ owner: req.user._id });
   res.json(tasks);
+};
+
+const addItem = async (req, res) => {
+  const { name, description, partOf } = req.query;
+  const task = await Task.create({
+    name,
+    description,
+    partOf,
+    owner: req.user._id,
+  });
+  res.json(task);
 };
 
 module.exports = {
@@ -68,4 +79,5 @@ module.exports = {
   getList,
   deleteTask,
   getItems,
+  addItem,
 };
