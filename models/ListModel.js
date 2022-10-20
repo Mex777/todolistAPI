@@ -12,6 +12,7 @@ const itemSchema = new Schema({
   name: { type: String, required: true },
   description: String,
   owner: { type: mongoose.Types.ObjectId, required: true },
+  date: Date,
   partOf: mongoose.Types.ObjectId,
 });
 

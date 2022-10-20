@@ -61,11 +61,12 @@ const getItems = async (req, res) => {
 };
 
 const addItem = async (req, res) => {
-  const { name, description, partOf } = req.query;
+  const { name, description, partOf, date } = req.query;
   const task = await Task.create({
     name,
     description,
     partOf,
+    date,
     owner: req.user._id,
   });
   res.json(task);
